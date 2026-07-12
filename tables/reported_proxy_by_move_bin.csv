@@ -1,0 +1,7 @@
+﻿move_bin,status,n_full_test,n_series_full_test,share_within_move_bin_pct,share_of_test_pct,lag_l1_to_obs,n_candidate_sample,n_series_candidate_sample,sample_oracle_l1,sample_f20_transition_source_l1,sample_oracle_cover_pct,sample_f20_transition_source_cover_pct
+stayer_l1_le_005,in_proxy,15584,6469,87.7,31.88,0.0236,1580,1407,0.0172,0.0194,99.94,99.94
+stayer_l1_le_005,out_of_proxy,2185,792,12.3,4.47,0.0129,218,184,0.3903,0.3916,31.19,29.82
+moderate_l1_005_025,in_proxy,22437,8527,90.09,45.89,0.1134,2316,2080,0.0717,0.0972,36.14,15.11
+moderate_l1_005_025,out_of_proxy,2467,1128,9.91,5.05,0.1292,217,200,0.3559,0.383,4.15,0.92
+mover_l1_gt_025,in_proxy,4540,2571,73.03,9.29,0.5327,511,469,0.3716,0.5204,0.78,0.2
+mover_l1_gt_025,out_of_proxy,1677,902,26.97,3.43,0.8723,158,154,1.0148,1.1779,0.0,0.0

@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=65"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "public-disclosure-recoverability"
+version = "0.1.0"
+description = "Reproducible code for public-disclosure recoverability in fund allocation recommendation"
+requires-python = ">=3.9"
+
+[tool.setuptools]
+packages = ["mandate_setirl"]

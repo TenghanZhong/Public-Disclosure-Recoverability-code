@@ -1,0 +1,262 @@
+﻿data_dir: data/raw
+out_dir: outputs/full_pipeline
+files:
+  main_panel: nport_choice_with_market_adviser.csv
+  asset_exposure_long: nport_asset_class_exposure_long.csv
+  fund_choice_summary: nport_fund_choice_summary.csv
+  adv_contract_constraints: adv_contract_text_constraints.csv
+keys:
+  entity_col: series_id
+  date_col: report_date
+  accession_col: accession_number
+adv_contract_constraints:
+  min_merge_rate: 0.5
+  merge_keys:
+  - - primary_adv_filing_id
+    - filing_id
+  - - primary_adv_filing_id
+    - adv_filing_id
+  - - primary_adviser_crd
+    - crd_number
+  - - primary_adviser_crd_num
+    - crd_number
+  - - primary_adviser_crd_number
+    - crd_number
+  - - primary_adviser_file_num
+    - sec_file_number
+  - - primary_sec_file_number
+    - sec_file_number
+  - - adv_filing_id
+    - filing_id
+  - - adv_filing_id_asof
+    - filing_id
+  - - filing_id
+    - filing_id
+  - - adviser_filing_id
+    - filing_id
+  - - adviser_crd_num
+    - crd_number
+  - - crd_number
+    - crd_number
+  - - sec_file_number
+    - sec_file_number
+  - - sec_file_number
+    - sec_number
+  - - adviser_file_num
+    - sec_file_number
+  label_cols:
+  - allows_or_discusses_derivatives
+  - shorting
+  - leverage
+  - liquidity_or_redemption_constraint
+  - discretionary_management
+  - wrap_fee
+  - performance_fee
+  - esg
+  - crypto
+  - legal_disciplinary
+  - custody
+  fail_on_low_merge_rate: true
+column_aliases:
+  shorting:
+  - allows_or_discusses_shorting
+  - mentions_shorting
+  leverage:
+  - allows_or_discusses_leverage
+  - mentions_leverage
+  performance_fee:
+  - mentions_performance_fee
+  - has_performance_fee
+  adv_total_drp_records:
+  - adviser_drp_total
+  - adv_drp_total
+  - total_drp_records
+  - adv_total_drp_records
+  allows_or_discusses_derivatives:
+  - mentions_derivatives
+  - allows_or_discusses_derivative
+  - allows_derivatives
+  - derivative_use
+  - derivatives
+  liquidity_or_redemption_constraint:
+  - mentions_liquidity_or_redemption_constraint
+  - liquidity_redemption_constraint
+  - liquidity_constraint
+  - redemption_constraint
+sample:
+  min_history_obs: 6
+  train_end: '2023-12-31'
+  calib_end: '2024-12-31'
+  max_train_obs: null
+  max_test_obs: null
+  random_seed: 42
+actions:
+  top_asset_cats:
+  - EC
+  - STIV
+  - DBT
+  - DE
+  - EP
+  - ABS-MBS
+  - RA
+  - DIR
+  - DFE
+  - LON
+  summary_action_cols:
+  - long_pct
+  - short_pct
+  - derivative_pct
+  - restricted_pct
+  - us_pct
+  - non_us_pct
+  cash_col: cash_not_reported
+  net_assets_col: net_assets
+  n_holdings_col: n_holdings
+  normalize_asset_weights: true
+  percent_cols_are_0_100: auto
+  summary_action_cleaning:
+    enabled: true
+    nonnegative_cols:
+    - long_pct
+    - short_pct
+    - derivative_pct
+    - restricted_pct
+    - us_pct
+    - non_us_pct
+    upper_bounds:
+      long_pct: 2.5
+      short_pct: 2.5
+      derivative_pct: 2.5
+      restricted_pct: 1.0
+      us_pct: 2.0
+      non_us_pct: 2.0
+    write_report: true
+clusters:
+  n_clusters: 16
+  min_cluster_size: 200
+  feature_candidates:
+  - IS_ETF
+  - IS_INDEX
+  - IS_FUND_OF_FUND
+  - IS_NON_DIVERSIFIED
+  - IS_SEC_LENDING_AUTHORIZED
+  - DID_LEND_SECURITIES
+  - HAS_LINE_OF_CREDIT
+  - HAS_INTERFUND_LENDING
+  - HAS_SWING_PRICING
+  - MANAGEMENT_FEE
+  - NET_OPERATING_EXPENSES
+  - n_advisers
+  - n_custodians
+  - n_pricing_services
+  - n_brokers
+  - adv_total_drp_records
+  - total_drp_records
+  - legal_disciplinary
+bounds:
+  main_mode: exogenous
+  diagnostic_modes:
+  - global
+  - exogenous
+  global_lower_q: 0.005
+  global_upper_q: 0.995
+  peer_lower_q: 0.05
+  peer_upper_q: 0.99
+  fund_lower_q: 0.05
+  fund_upper_q: 0.99
+  history_min_obs: 3
+  history_buffer: 0.1
+  min_width: 0.01
+  no_derivative_keyword_cap: 0.05
+  no_short_keyword_cap: 0.03
+  liquidity_restricted_cap: 0.1
+  use_adv_soft_caps: false
+candidates:
+  n_candidates: 64
+  same_date_peer_mode: off
+  allow_transductive_same_date: false
+  peer_same_date_frac: 0.0
+  peer_train_frac: 0.7
+  self_frac: 0.2
+  dirichlet_frac: 0.0
+  frontier_frac: 0.1
+  dirichlet_alpha: 0.7
+  include_observed_candidate: true
+  prediction_exclude_observed: true
+  chunk_size: 512
+evaluation:
+  selected_fractions:
+  - 0.05
+  - 0.1
+  - 0.2
+  - 0.3
+  - 0.5
+  frontier_exclude_observed: true
+  recommendation_hit_l1_tol: 0.05
+  coverage_l1_tolerance: 0.05
+  exclude_observed_candidate_for_recommendation: true
+  frontier_reports_rationalization_diagnostic: true
+utility:
+  scaler_sample_obs: 20000
+  scaler_candidates_per_obs: 24
+  return_window_preference:
+  - '63'
+  - '21'
+  - '252'
+  vol_window_preference:
+  - '63'
+  - '20'
+  - '21'
+  - '252'
+  feature_names:
+  - ret_proxy
+  - neg_risk_proxy
+  - neg_drawdown_proxy
+  - flow_liquidity_fit
+  - neg_style_drift
+  - liquidity_score
+  - neg_derivative_use
+  - neg_short_use
+  - neg_restricted_use
+  - neg_non_us_exposure
+  - neg_compliance_interaction
+irl:
+  preference_scope: cluster
+  max_train_obs_per_scope: 6000
+  min_train_obs_per_scope: 60
+  max_constraints_per_scope: 3000
+  eps_additive: 0.02
+  eps_multiplier: 1.05
+  constraint_clip: 12.0
+  set_near_optimal_eta: 0.05
+  train_require_observed_feasible: true
+  feasibility_tol: 1.0e-07
+  membership_mode: support
+  exact_max_candidates_per_obs: null
+  max_eval_obs: null
+conformal:
+  enabled: false
+  alpha: 0.1
+  feasible_only: true
+  never_shrink_eta: true
+ablation:
+  run_no_mandate: true
+  run_full_bounds_ablation: false
+  run_point_irl: true
+  run_mv_inverse_optimization: false
+flow_validation:
+  enabled: true
+  y_cols:
+  - net_flow_3m_scaled
+  - redemption_flow_3m_scaled
+  - sales_flow_3m_scaled
+  controls:
+  - log_net_assets
+  - lag_net_flow_3m_scaled
+  - MANAGEMENT_FEE
+  - NET_OPERATING_EXPENSES
+  - vix
+  - hy_oas
+  min_obs: 1000
+plots:
+  enabled: false
