@@ -7,7 +7,7 @@ python -m pip install -r requirements.txt
 ```
 
 The code was written for Python 3.9 or newer and uses NumPy, pandas, SciPy,
-statsmodels, matplotlib, PyYAML, tqdm, pyarrow, and pytest.
+statsmodels, matplotlib, PyYAML, tqdm, pyarrow, scikit-learn, and pytest.
 
 ## Tests
 
@@ -15,7 +15,8 @@ statsmodels, matplotlib, PyYAML, tqdm, pyarrow, and pytest.
 pytest tests
 ```
 
-These tests use synthetic data to check core package behavior.
+These tests use synthetic data to check core package behavior, including the
+20% supervised recommendation-set selection rule.
 
 ## Figures From Committed Tables
 
@@ -38,7 +39,30 @@ The full pipeline writes intermediate and row-level outputs to `outputs/`.
 Analysis scripts under `scripts/analysis/` then build reported diagnostics
 and summaries.
 
-Examples:
+Run the supervised ranker at the paper's 20% recommendation frontier with:
+
+```bash
+python scripts/pipeline/run_supervised_ranker_f20.py \
+  --config configs/main_32gb.yaml \
+  --panel_root outputs/full_pipeline \
+  --out_dir outputs/supervised_ranker \
+  --recommendation_fraction 0.20
+```
+
+The global rule selects `ceil(0.20 * number of non-observed candidates)`.
+The feasibility-filtered rule first restricts to non-observed candidates
+inside the exogenous mandate proxy and then selects
+`ceil(0.20 * number of feasible candidates)`. Coverage and distance are
+computed from the closest candidate in each selected set.
+
+To rebuild the combined benchmark table after the supervised run:
+
+```bash
+python scripts/analysis/build_persistence_benchmarks.py \
+  --supervised_dir outputs/supervised_ranker
+```
+
+Other examples:
 
 ```bash
 python scripts/analysis/boundary_inference_checks.py
