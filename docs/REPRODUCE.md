@@ -42,7 +42,7 @@ and summaries.
 Run the supervised ranker at the paper's 20% recommendation frontier with:
 
 ```bash
-python scripts/pipeline/run_supervised_ranker_f20.py \
+python -m scripts.pipeline.run_supervised_ranker_f20 \
   --config configs/main_32gb.yaml \
   --panel_root outputs/full_pipeline \
   --out_dir outputs/supervised_ranker \
@@ -58,7 +58,7 @@ computed from the closest candidate in each selected set.
 To regenerate the compact supervised table after the full-data run:
 
 ```bash
-python scripts/analysis/build_supervised_f20_reported_table.py \
+python -m scripts.analysis.build_supervised_f20_reported_table \
   --row_level outputs/supervised_ranker/supervised_ranker_f20_row_level.parquet \
   --out tables/supervised_ranker_f20_reported.csv
 ```
