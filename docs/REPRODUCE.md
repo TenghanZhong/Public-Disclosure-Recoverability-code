@@ -6,25 +6,25 @@
 python -m pip install -r requirements.txt
 ```
 
-The code was written for Python 3.9 or newer and uses NumPy, pandas, SciPy,
+The code requires Python 3.9 or newer and uses NumPy, pandas, SciPy,
 statsmodels, matplotlib, PyYAML, tqdm, pyarrow, scikit-learn, and pytest.
 
 ## Tests
 
 ```bash
-pytest tests
+pytest -q
 ```
 
-These tests use synthetic data to check core package behavior, including the
+The tests use synthetic data to check core package behavior, including the
 20% supervised recommendation-set selection rule.
 
-## Figures From Committed Tables
+## Figures
 
 ```bash
 python scripts/analysis/make_reported_figures.py
 ```
 
-This command reads CSV files from `tables/` and writes PDF/PNG files to
+This command reads CSV files from `tables/` and writes PDF and PNG files to
 `figures/`.
 
 ## Full Pipeline
@@ -36,10 +36,10 @@ python scripts/pipeline/run_full_experiment.py --config configs/main_32gb.yaml
 ```
 
 The full pipeline writes intermediate and row-level outputs to `outputs/`.
-Analysis scripts under `scripts/analysis/` then build reported diagnostics
-and summaries.
+Analysis scripts under `scripts/analysis/` create compact summaries and
+diagnostics.
 
-Run the supervised ranker at the paper's 20% recommendation frontier with:
+Run the supervised 20% recommendation-set baseline with:
 
 ```bash
 python -m scripts.pipeline.run_supervised_ranker_f20 \
@@ -50,12 +50,12 @@ python -m scripts.pipeline.run_supervised_ranker_f20 \
 ```
 
 The global rule selects `ceil(0.20 * number of non-observed candidates)`.
-The feasibility-filtered rule first restricts to non-observed candidates
-inside the exogenous mandate proxy and then selects
-`ceil(0.20 * number of feasible candidates)`. Coverage and distance are
-computed from the closest candidate in each selected set.
+The feasibility-filtered rule first restricts eligibility to non-observed
+candidates inside the exogenous mandate proxy and then selects
+`ceil(0.20 * number of feasible candidates)`. Coverage and distance use the
+closest candidate in each selected set.
 
-To regenerate the compact supervised table after the full-data run:
+Create the compact supervised summary with:
 
 ```bash
 python -m scripts.analysis.build_supervised_f20_reported_table \
@@ -63,7 +63,7 @@ python -m scripts.analysis.build_supervised_f20_reported_table \
   --out tables/supervised_ranker_f20_reported.csv
 ```
 
-Other examples:
+Additional entry points:
 
 ```bash
 python scripts/analysis/boundary_inference_checks.py
@@ -72,5 +72,5 @@ python scripts/analysis/out_of_proxy_mechanical_robustness.py
 python scripts/analysis/build_persistence_benchmarks.py
 ```
 
-Some scripts require row-level outputs from the full pipeline. When those files
-are absent, the committed tables remain the inspection layer.
+Some scripts require row-level outputs from the full pipeline. The committed
+CSV files provide compact reference summaries when those files are absent.

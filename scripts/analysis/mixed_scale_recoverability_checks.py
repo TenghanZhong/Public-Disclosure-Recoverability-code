@@ -74,7 +74,7 @@ def train_iqr_scales(
     values = panel.loc[train_mask, action_cols].apply(pd.to_numeric, errors="coerce")
     q75 = values.quantile(0.75)
     q25 = values.quantile(0.25)
-    scale = (q75 - q25).replace([np.inf, -np.inf], np.nan).fillna(0.0).to_numpy(dtype=float)
+    scale = (q75 - q25).replace([np.inf, -np.inf], np.nan).fillna(0.0).to_numpy(dtype=float, copy=True)
     scale[(~np.isfinite(scale)) | (scale <= floor)] = 1.0
     return scale
 
@@ -276,7 +276,7 @@ def write_readme(out_dir: Path, manifest: dict, summary: pd.DataFrame) -> None:
         f"Scaled tolerance is calibrated on the training split to match the full-vector stable-report share: `{manifest['training_full_tau_stable_share']:.6f}`.",
         f"Calibrated scaled tolerance: `{manifest['scaled_tau']:.6f}`.",
         "",
-        "Reported support means:",
+        "Support means:",
         "",
     ]
     reported = summary[
@@ -287,7 +287,7 @@ def write_readme(out_dir: Path, manifest: dict, summary: pd.DataFrame) -> None:
     lines.extend(
         [
             "",
-            "Interpretation: the IQR-scaled full-vector check is the reported mixed-scale robustness. The asset-block check separates full action-profile support from asset-share support.",
+            "Interpretation: the IQR-scaled full-vector check evaluates mixed-scale robustness. The asset-block check separates full action-profile support from asset-share support.",
         ]
     )
     (out_dir / "README.md").write_text("\n".join(lines), encoding="utf-8")

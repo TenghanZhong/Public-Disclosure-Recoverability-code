@@ -1,9 +1,5 @@
 #!/usr/bin/env python
-"""Run the supervised ranker at the paper's 20% recommendation frontier.
-
-This is the reported Table 2 implementation. The older
-``run_blackbox_ranker_baseline.py`` remains a top-1 diagnostic.
-"""
+"""Evaluate supervised ranking with 20% recommendation sets."""
 from __future__ import annotations
 
 import argparse
@@ -18,9 +14,9 @@ from tqdm import tqdm
 
 from mandate_setirl.bounds import action_violations, feasible_set_metrics, fit_mandate_bounds
 from mandate_setirl.candidates import CandidateGenerator
-from mandate_setirl.features import fit_utility_feature_model
+from mandate_setirl.features import compute_scaled_utility_features, fit_utility_feature_model
 from mandate_setirl.utils import chunk_indices, ensure_dir, read_yaml, set_seed, smart_write_table
-from scripts.build_calibration_traceability import cluster_bootstrap_ci
+from scripts.pipeline.build_calibration_traceability import cluster_bootstrap_ci
 from scripts.pipeline.run_blackbox_ranker_baseline import (
     DEFAULT_CONFIG,
     DEFAULT_OUT_DIR,
@@ -65,10 +61,9 @@ def select_ranker_sets(
     filter_compliant: bool = False,
     recommendation_fraction: float = DEFAULT_RECOMMENDATION_FRACTION,
 ) -> list[np.ndarray]:
-    """Return deterministic top-fraction sets, excluding the observed allocation.
+    """Select the highest-scoring fraction of eligible candidates.
 
-    The global denominator is the full non-observed menu. The filtered
-    denominator is the feasible non-observed menu, matching mandate-aware RP.
+    Feasibility filtering is applied before the set size is computed.
     """
     scores = np.asarray(scores, dtype=float)
     violations = np.asarray(violations, dtype=bool)
@@ -170,11 +165,9 @@ def evaluate_ranker_f20(
     panel_reset = panel.reset_index(drop=True)
     rows: list[dict[str, Any]] = []
 
-    for start, end in tqdm(list(chunk_indices(len(positions), chunk_size)), desc=f"eval supervised f20 {split}"):
+    for start, end in tqdm(list(chunk_indices(len(positions), chunk_size)), desc=f"evaluate supervised f20 {split}"):
         pos = positions[start:end]
         batch = candgen.generate_for_positions(pos, n_candidates=M)
-        from mandate_setirl.features import compute_scaled_utility_features
-
         utility = compute_scaled_utility_features(panel, batch, feature_model)
         state = _state_matrix(panel, pos, state_cols, state_scaler)
         X, _ = make_ranker_feature_matrix(batch.actions, utility, candgen.action_cols, feature_model.feature_names, state, state_cols)
@@ -358,7 +351,7 @@ def main() -> None:
         write_bootstrap(row_level, out_dir, args.n_boot, seed)
 
     manifest = {
-        "reported_estimand": "20% recommendation set",
+        "estimand": "20% recommendation set",
         "recommendation_fraction": float(args.recommendation_fraction),
         "global_rule": "top ceil(q * non-observed menu size)",
         "feasibility_filtered_rule": "filter to feasible candidates, then top ceil(q * feasible menu size)",

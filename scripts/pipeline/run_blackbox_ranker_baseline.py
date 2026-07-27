@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 from __future__ import annotations
 
 import argparse
@@ -26,7 +26,7 @@ from mandate_setirl.bounds import action_violations, feasible_set_metrics, fit_m
 from mandate_setirl.candidates import CandidateGenerator
 from mandate_setirl.features import compute_scaled_utility_features, fit_utility_feature_model
 from mandate_setirl.utils import SimpleStandardScaler, chunk_indices, ensure_dir, read_yaml, set_seed, smart_write_table
-from scripts.build_calibration_traceability import cluster_bootstrap_ci
+from scripts.pipeline.build_calibration_traceability import cluster_bootstrap_ci
 
 
 DEFAULT_CONFIG = PROJECT_ROOT / "configs" / "main_32gb.yaml"

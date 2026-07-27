@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 from __future__ import annotations
 
 import argparse
@@ -500,7 +500,7 @@ def build_auditability_evidence(root: Path, config_path: Path, out_dir: Path, pr
         "# Auditability evidence",
         "",
         "The analysis uses saved row-level outputs and reconstructed exogenous mandate bounds.",
-        "Candidate recommendation actions are not persisted dimension-by-dimension, so dimension-level drivers are reported for observed action feasibility; model-level recommendation violation rates are reported from evaluation outputs.",
+        "Dimension-level drivers summarize observed-action feasibility; model-level recommendation violation rates come from the evaluation outputs.",
         "",
         "Key files:",
         "- preference_intervals_long.csv",

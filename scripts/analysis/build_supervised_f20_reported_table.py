@@ -1,4 +1,4 @@
-"""Build the reported supervised 20% recommendation-set table."""
+"""Summarize supervised 20% recommendation-set results."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from scripts.build_calibration_traceability import cluster_bootstrap_ci
+from scripts.pipeline.build_calibration_traceability import cluster_bootstrap_ci
 
 
 def parse_args() -> argparse.Namespace:

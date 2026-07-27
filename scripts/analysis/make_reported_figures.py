@@ -1,8 +1,4 @@
-"""Create reported mandate-proxy evaluation figures.
-
-The script reads committed CSV outputs under ``tables/`` and
-writes vector PDF plus high-resolution PNG outputs under ``figures/``.
-"""
+"""Generate evaluation figures from committed summary tables."""
 
 from __future__ import annotations
 
@@ -351,7 +347,7 @@ def main() -> None:
             "tables/transition_source_by_move_bin.csv",
         ],
         "figure_roles": {
-            "reported_figures": [
+            "core_figures": [
                 "risk_signal_forest",
                 "recoverability_heatmap",
             ],
@@ -359,7 +355,7 @@ def main() -> None:
                 "persistence_ladder",
                 "direction_source_attribution",
             ],
-            "description": "Reported figures include the risk-signal forest plot and recoverability heatmap; additional diagnostics show persistence and transition sources.",
+            "description": "Core figures summarize risk signals and recoverability; additional figures summarize persistence and transition sources.",
         },
         "outputs": outputs,
     }
