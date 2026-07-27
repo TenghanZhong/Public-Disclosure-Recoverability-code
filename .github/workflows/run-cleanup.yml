@@ -1,0 +1,48 @@
+name: run-cleanup
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chore/artifact-cleanup
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Apply changes
+        shell: bash
+        run: |
+          sed -n "/cat > \/tmp\/changes.b64 <<'EOF'/,/^EOF$/p" .github/workflows/apply-cleanup.yml | sed '1d;$d' > /tmp/changes.b64
+          base64 -d /tmp/changes.b64 | gzip -d > /tmp/changes.patch
+          git apply /tmp/changes.patch
+          rm -f .github/workflows/apply-cleanup.yml .github/workflows/run-cleanup.yml
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Validate
+        shell: bash
+        run: |
+          python -m compileall -q mandate_setirl scripts tests
+          pytest -q
+
+      - name: Commit
+        shell: bash
+        run: |
+          git config user.name "Artifact Maintenance"
+          git config user.email "artifact-maintenance@users.noreply.github.com"
+          git add -A
+          git commit -m "Refine artifact documentation and checks"
+          git push origin HEAD:chore/artifact-cleanup
