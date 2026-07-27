@@ -5,8 +5,11 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
-  inspect:
+  apply:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,6 +27,16 @@ jobs:
           sed -n "/cat > \/tmp\/changes.b64 <<'EOF'/,/^EOF$/p" .github/workflows/apply-cleanup.yml | sed '1d;$d' > /tmp/changes.b64
           base64 -d /tmp/changes.b64 | gzip -d > /tmp/changes.patch
           git apply /tmp/changes.patch
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("scripts/analysis/mixed_scale_recoverability_checks.py")
+          text = path.read_text(encoding="utf-8")
+          old = '.fillna(0.0).to_numpy(dtype=float)'
+          new = '.fillna(0.0).to_numpy(dtype=float, copy=True)'
+          if old not in text:
+              raise SystemExit("expected scale conversion not found")
+          path.write_text(text.replace(old, new, 1), encoding="utf-8")
+          PY
           rm -f .github/workflows/apply-cleanup.yml .github/workflows/run-cleanup.yml
 
       - name: Install dependencies
@@ -32,30 +45,14 @@ jobs:
       - name: Validate
         shell: bash
         run: |
-          set +e
-          python -m compileall -q mandate_setirl scripts tests > compile.log 2>&1
-          compile_status=$?
-          pytest -q > pytest.log 2>&1
-          pytest_status=$?
-          echo "compile_status=${compile_status}" > validation-status.txt
-          echo "pytest_status=${pytest_status}" >> validation-status.txt
-          cat validation-status.txt
-          cat pytest.log
-          exit 0
+          python -m compileall -q mandate_setirl scripts tests
+          pytest -q
 
-      - name: Build snapshot
-        if: always()
+      - name: Commit
         shell: bash
         run: |
-          zip -qr post-cleanup-snapshot.zip . -x '.git/*' 'post-cleanup-snapshot.zip'
-
-      - name: Upload inspection bundle
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: cleanup-inspection-bundle
-          path: |
-            validation-status.txt
-            compile.log
-            pytest.log
-            post-cleanup-snapshot.zip
+          git config user.name "Artifact Maintenance"
+          git config user.email "artifact-maintenance@users.noreply.github.com"
+          git add -A
+          git commit -m "Refine artifact documentation and validation"
+          git push origin HEAD:chore/artifact-cleanup
