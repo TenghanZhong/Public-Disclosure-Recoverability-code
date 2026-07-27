@@ -1,0 +1,77 @@
+﻿stage,move_bin,source_bucket,hit_n,move_stage_hit_n,share_within_move_stage_hits
+oracle_nearest,moderate_l1_005_025,peer large transition,116,846,0.13711583924349882
+oracle_nearest,moderate_l1_005_025,peer moderate transition,451,846,0.533096926713948
+oracle_nearest,moderate_l1_005_025,peer small transition,169,846,0.19976359338061467
+oracle_nearest,moderate_l1_005_025,regime transition,68,846,0.08037825059101655
+oracle_nearest,moderate_l1_005_025,same-series large transition,3,846,0.0035460992907801418
+oracle_nearest,moderate_l1_005_025,same-series moderate transition,28,846,0.03309692671394799
+oracle_nearest,moderate_l1_005_025,same-series small transition,8,846,0.009456264775413711
+oracle_nearest,moderate_l1_005_025,static peer,3,846,0.0035460992907801418
+oracle_nearest,mover_l1_gt_025,peer large transition,3,4,0.75
+oracle_nearest,mover_l1_gt_025,peer small transition,1,4,0.25
+oracle_nearest,stayer_l1_le_005,lag exact/projected,388,1647,0.2355798421372192
+oracle_nearest,stayer_l1_le_005,peer large transition,12,1647,0.007285974499089253
+oracle_nearest,stayer_l1_le_005,peer moderate transition,221,1647,0.13418336369156042
+oracle_nearest,stayer_l1_le_005,peer small transition,685,1647,0.4159077109896782
+oracle_nearest,stayer_l1_le_005,regime transition,277,1647,0.1681845780206436
+oracle_nearest,stayer_l1_le_005,same-series moderate transition,7,1647,0.004250151791135397
+oracle_nearest,stayer_l1_le_005,same-series small transition,55,1647,0.033394049787492414
+oracle_nearest,stayer_l1_le_005,static peer,2,1647,0.0012143290831815423
+f20_oracle_upper_bound,moderate_l1_005_025,peer large transition,116,846,0.13711583924349882
+f20_oracle_upper_bound,moderate_l1_005_025,peer moderate transition,451,846,0.533096926713948
+f20_oracle_upper_bound,moderate_l1_005_025,peer small transition,169,846,0.19976359338061467
+f20_oracle_upper_bound,moderate_l1_005_025,regime transition,68,846,0.08037825059101655
+f20_oracle_upper_bound,moderate_l1_005_025,same-series large transition,3,846,0.0035460992907801418
+f20_oracle_upper_bound,moderate_l1_005_025,same-series moderate transition,28,846,0.03309692671394799
+f20_oracle_upper_bound,moderate_l1_005_025,same-series small transition,8,846,0.009456264775413711
+f20_oracle_upper_bound,moderate_l1_005_025,static peer,3,846,0.0035460992907801418
+f20_oracle_upper_bound,mover_l1_gt_025,peer large transition,3,4,0.75
+f20_oracle_upper_bound,mover_l1_gt_025,peer small transition,1,4,0.25
+f20_oracle_upper_bound,stayer_l1_le_005,lag exact/projected,388,1647,0.2355798421372192
+f20_oracle_upper_bound,stayer_l1_le_005,peer large transition,12,1647,0.007285974499089253
+f20_oracle_upper_bound,stayer_l1_le_005,peer moderate transition,221,1647,0.13418336369156042
+f20_oracle_upper_bound,stayer_l1_le_005,peer small transition,685,1647,0.4159077109896782
+f20_oracle_upper_bound,stayer_l1_le_005,regime transition,277,1647,0.1681845780206436
+f20_oracle_upper_bound,stayer_l1_le_005,same-series moderate transition,7,1647,0.004250151791135397
+f20_oracle_upper_bound,stayer_l1_le_005,same-series small transition,55,1647,0.033394049787492414
+f20_oracle_upper_bound,stayer_l1_le_005,static peer,2,1647,0.0012143290831815423
+f20_size_matched_persistence,moderate_l1_005_025,peer large transition,5,300,0.016666666666666666
+f20_size_matched_persistence,moderate_l1_005_025,peer moderate transition,62,300,0.20666666666666667
+f20_size_matched_persistence,moderate_l1_005_025,peer small transition,194,300,0.6466666666666666
+f20_size_matched_persistence,moderate_l1_005_025,regime transition,20,300,0.06666666666666667
+f20_size_matched_persistence,moderate_l1_005_025,same-series moderate transition,8,300,0.02666666666666667
+f20_size_matched_persistence,moderate_l1_005_025,same-series small transition,11,300,0.03666666666666667
+f20_size_matched_persistence,mover_l1_gt_025,peer small transition,1,1,1.0
+f20_size_matched_persistence,stayer_l1_le_005,lag exact/projected,465,1644,0.28284671532846717
+f20_size_matched_persistence,stayer_l1_le_005,peer large transition,8,1644,0.004866180048661801
+f20_size_matched_persistence,stayer_l1_le_005,peer moderate transition,114,1644,0.06934306569343066
+f20_size_matched_persistence,stayer_l1_le_005,peer small transition,713,1644,0.43369829683698297
+f20_size_matched_persistence,stayer_l1_le_005,regime transition,285,1644,0.17335766423357665
+f20_size_matched_persistence,stayer_l1_le_005,same-series moderate transition,5,1644,0.0030413625304136255
+f20_size_matched_persistence,stayer_l1_le_005,same-series small transition,52,1644,0.031630170316301706
+f20_size_matched_persistence,stayer_l1_le_005,static peer,2,1644,0.0012165450121654502
+f20_transition_knn_retrieval,moderate_l1_005_025,peer large transition,25,405,0.06172839506172839
+f20_transition_knn_retrieval,moderate_l1_005_025,peer moderate transition,229,405,0.5654320987654321
+f20_transition_knn_retrieval,moderate_l1_005_025,peer small transition,109,405,0.2691358024691358
+f20_transition_knn_retrieval,moderate_l1_005_025,same-series large transition,4,405,0.009876543209876543
+f20_transition_knn_retrieval,moderate_l1_005_025,same-series moderate transition,26,405,0.06419753086419754
+f20_transition_knn_retrieval,moderate_l1_005_025,same-series small transition,12,405,0.02962962962962963
+f20_transition_knn_retrieval,mover_l1_gt_025,peer small transition,1,1,1.0
+f20_transition_knn_retrieval,stayer_l1_le_005,peer large transition,7,1548,0.004521963824289405
+f20_transition_knn_retrieval,stayer_l1_le_005,peer moderate transition,310,1548,0.20025839793281655
+f20_transition_knn_retrieval,stayer_l1_le_005,peer small transition,1131,1548,0.7306201550387597
+f20_transition_knn_retrieval,stayer_l1_le_005,same-series moderate transition,26,1548,0.016795865633074936
+f20_transition_knn_retrieval,stayer_l1_le_005,same-series small transition,74,1548,0.04780361757105943
+f20_transition_source_then_persistence,moderate_l1_005_025,peer large transition,7,352,0.019886363636363636
+f20_transition_source_then_persistence,moderate_l1_005_025,peer moderate transition,86,352,0.24431818181818182
+f20_transition_source_then_persistence,moderate_l1_005_025,peer small transition,215,352,0.6107954545454546
+f20_transition_source_then_persistence,moderate_l1_005_025,regime transition,24,352,0.06818181818181818
+f20_transition_source_then_persistence,moderate_l1_005_025,same-series moderate transition,9,352,0.02556818181818182
+f20_transition_source_then_persistence,moderate_l1_005_025,same-series small transition,11,352,0.03125
+f20_transition_source_then_persistence,mover_l1_gt_025,peer small transition,1,1,1.0
+f20_transition_source_then_persistence,stayer_l1_le_005,peer large transition,9,1644,0.005474452554744526
+f20_transition_source_then_persistence,stayer_l1_le_005,peer moderate transition,145,1644,0.08819951338199514
+f20_transition_source_then_persistence,stayer_l1_le_005,peer small transition,754,1644,0.4586374695863747
+f20_transition_source_then_persistence,stayer_l1_le_005,regime transition,675,1644,0.41058394160583944
+f20_transition_source_then_persistence,stayer_l1_le_005,same-series moderate transition,6,1644,0.0036496350364963502
+f20_transition_source_then_persistence,stayer_l1_le_005,same-series small transition,55,1644,0.03345498783454988

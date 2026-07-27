@@ -1,0 +1,148 @@
+﻿data_dir: data/raw
+out_dir: outputs/full_pipeline
+files:
+  main_panel: nport_choice_with_market_adviser.csv
+  asset_exposure_long: nport_asset_class_exposure_long.csv
+  fund_choice_summary: nport_fund_choice_summary.csv
+keys:
+  entity_col: series_id
+  date_col: report_date
+  accession_col: accession_number
+sample:
+  min_history_obs: 4
+  train_end: '2023-12-31'
+  calib_end: '2024-12-31'
+  max_train_obs: null
+  max_test_obs: null
+  random_seed: 7
+actions:
+  top_asset_cats:
+  - EC
+  - STIV
+  - DBT
+  - DE
+  - EP
+  - ABS-MBS
+  - RA
+  - DIR
+  - DFE
+  - LON
+  summary_action_cols:
+  - long_pct
+  - short_pct
+  - derivative_pct
+  - restricted_pct
+  - us_pct
+  - non_us_pct
+  cash_col: cash_not_reported
+  net_assets_col: net_assets
+  n_holdings_col: n_holdings
+  normalize_asset_weights: true
+  percent_cols_are_0_100: auto
+  summary_action_cleaning:
+    enabled: true
+clusters:
+  n_clusters: 4
+  min_cluster_size: 30
+  feature_candidates:
+  - IS_ETF
+  - IS_INDEX
+  - IS_NON_DIVERSIFIED
+  - MANAGEMENT_FEE
+  - NET_OPERATING_EXPENSES
+  - adv_total_drp_records
+bounds:
+  main_mode: exogenous
+  diagnostic_modes:
+  - global
+  - exogenous
+  - lagged_history
+  - full
+  global_lower_q: 0.005
+  global_upper_q: 0.995
+  peer_lower_q: 0.05
+  peer_upper_q: 0.99
+  fund_lower_q: 0.05
+  fund_upper_q: 0.99
+  history_min_obs: 3
+  history_buffer: 0.1
+  min_width: 0.01
+  no_derivative_keyword_cap: 0.05
+  no_short_keyword_cap: 0.03
+  liquidity_restricted_cap: 0.1
+  use_adv_soft_caps: false
+candidates:
+  n_candidates: 32
+  same_date_peer_mode: off
+  allow_transductive_same_date: false
+  peer_same_date_frac: 0.0
+  peer_train_frac: 0.7
+  self_frac: 0.2
+  dirichlet_frac: 0.0
+  frontier_frac: 0.1
+  chunk_size: 256
+utility:
+  scaler_sample_obs: 2000
+  scaler_candidates_per_obs: 16
+  feature_names:
+  - ret_proxy
+  - neg_risk_proxy
+  - neg_drawdown_proxy
+  - flow_liquidity_fit
+  - neg_style_drift
+  - liquidity_score
+  - neg_derivative_use
+  - neg_short_use
+  - neg_restricted_use
+  - neg_non_us_exposure
+  - neg_compliance_interaction
+irl:
+  preference_scope: cluster
+  max_train_obs_per_scope: 300
+  min_train_obs_per_scope: 30
+  max_constraints_per_scope: 500
+  eps_additive: 0.02
+  eps_multiplier: 1.05
+  set_near_optimal_eta: 0.05
+  train_require_observed_feasible: true
+  feasibility_tol: 1.0e-07
+  membership_mode: support
+  max_eval_obs: 1500
+evaluation:
+  selected_fractions:
+  - 0.1
+  - 0.2
+  - 0.5
+  frontier_exclude_observed: true
+  recommendation_hit_l1_tol: 0.05
+  coverage_l1_tolerance: 0.05
+  exclude_observed_candidate_for_recommendation: true
+  frontier_reports_rationalization_diagnostic: true
+conformal:
+  enabled: false
+  alpha: 0.1
+  feasible_only: true
+  never_shrink_eta: true
+ablation:
+  run_no_mandate: true
+  run_full_bounds_ablation: false
+  run_mv_inverse_optimization: true
+flow_validation:
+  enabled: true
+  y_cols:
+  - net_flow_3m_scaled
+  - redemption_flow_3m_scaled
+  - sales_flow_3m_scaled
+  controls:
+  - log_net_assets
+  - lag_net_flow_3m_scaled
+  - MANAGEMENT_FEE
+  - NET_OPERATING_EXPENSES
+  - vix
+  - hy_oas
+  min_obs: 200
+plots:
+  enabled: false
+adv_contract_constraints:
+  min_merge_rate: 0.0
+  fail_on_low_merge_rate: false

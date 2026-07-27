@@ -1,0 +1,41 @@
+{
+  "source_tables": [
+    "tables/reported_risk_signal_table.csv",
+    "tables/boundary_regressions/reported_boundary_regressions.csv",
+    "tables/boundary_regressions/wild_bootstrap.csv",
+    "tables/repeated_menu_support_summary.csv",
+    "tables/repeated_transition_selection_summary.csv",
+    "tables/persistence_ladder_with_ci.csv",
+    "tables/transition_direction_bootstrap_ci.csv",
+    "tables/transition_source_by_move_bin.csv"
+  ],
+  "figure_roles": {
+    "core_figures": [
+      "risk_signal_forest",
+      "recoverability_heatmap"
+    ],
+    "additional_diagnostics": [
+      "persistence_ladder",
+      "direction_source_attribution"
+    ],
+    "description": "Core figures summarize risk signals and recoverability; additional figures summarize persistence and transition sources."
+  },
+  "outputs": {
+    "risk_signal_forest": {
+      "pdf": "figures/fig_risk_signal_forest.pdf",
+      "png": "figures/fig_risk_signal_forest.png"
+    },
+    "recoverability_heatmap": {
+      "pdf": "figures/fig_recoverability_heatmap.pdf",
+      "png": "figures/fig_recoverability_heatmap.png"
+    },
+    "persistence_ladder": {
+      "pdf": "figures/fig_persistence_ladder.pdf",
+      "png": "figures/fig_persistence_ladder.png"
+    },
+    "direction_source_attribution": {
+      "pdf": "figures/fig_direction_source_attribution.pdf",
+      "png": "figures/fig_direction_source_attribution.png"
+    }
+  }
+}
