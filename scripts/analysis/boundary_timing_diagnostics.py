@@ -423,7 +423,7 @@ def main() -> None:
         "config": str(Path(args.config)),
         "split": args.split,
         "bounds": "vectorized exogenous global plus peer quantile bounds matching selected config; ADV soft caps disabled",
-        "coordinate_scaling": "training-split IQR with safe floor; coefficient reported after z-scoring the scaled distance on the test split",
+        "coordinate_scaling": "training-split IQR with safe floor; coefficient uses the z-scored test-split distance",
         "standard_errors": "two-way clustered by fund series and report date",
         "fixed_effects": ["report_date", "mandate_cluster"],
         "notes": [

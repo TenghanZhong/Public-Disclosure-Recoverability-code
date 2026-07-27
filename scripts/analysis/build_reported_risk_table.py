@@ -1,4 +1,4 @@
-"""Build the reported risk-signal table from common-bound regressions."""
+"""Build the risk-signal summary table."""
 
 from __future__ import annotations
 

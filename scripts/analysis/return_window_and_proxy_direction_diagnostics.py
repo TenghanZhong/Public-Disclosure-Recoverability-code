@@ -383,7 +383,7 @@ def direction_decomposition(panel: pd.DataFrame, action_cols: list[str], asset_c
         "overlay_cosine_to_proxy",
     ]
     bootstrap_ci(direction, boot_metrics, "series_id", n_boot=n_boot, seed=seed).to_csv(out_dir / "proxy_direction_cluster_bootstrap_ci.csv", index=False)
-    # Compact reported diagnostic table.
+    # Compact diagnostic table.
     direction.drop(columns=["row_pos"]).head(5000).to_csv(out_dir / "proxy_direction_row_sample.csv", index=False)
 
 

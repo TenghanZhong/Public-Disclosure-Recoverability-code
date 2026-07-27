@@ -1,10 +1,4 @@
-"""Compute RP-with-preference-sets versus point-minimax operational disagreement.
-
-RP with preference sets has only a small net coverage gain
-over the point-minimax baseline. This script decomposes that net difference
-into gross local coverage changes on the same test reports and frontier, then
-adds series-cluster bootstrap intervals and preference-set diagnostics.
-"""
+"""Compare set-valued and point-minimax recommendation outcomes."""
 
 from __future__ import annotations
 

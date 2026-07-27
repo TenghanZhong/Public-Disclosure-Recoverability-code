@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Any
@@ -63,7 +63,7 @@ class CandidateGenerator:
         if not include_obs:
             raise ValueError(
                 "candidates.include_observed_candidate must remain true for revealed-preference constraints; "
-                "point-prediction diagnostics excluding the observed reference candidate are reported separately."
+                "point-prediction diagnostics exclude the observed reference candidate."
             )
         self.actions_all = self.panel[action_cols].to_numpy(dtype=float)
         self.lag_actions_all = self._lag_actions_matrix()

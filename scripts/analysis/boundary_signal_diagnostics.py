@@ -1,11 +1,6 @@
-"""Additional diagnostics for the mandate-proxy excursion signal.
+"""Mandate-proxy excursion diagnostics.
 
-The script reuses the same selected-bound constructor as Table 1, then runs
-three compact checks:
-
-1. fund-series fixed effects;
-2. lead-lag symmetry for future, current, and past drift;
-3. test-split top-decile lift for next-report drift.
+Runs fund-series fixed effects, lead-lag checks, and test-split top-decile lift.
 """
 
 from __future__ import annotations

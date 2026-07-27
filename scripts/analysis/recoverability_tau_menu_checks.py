@@ -1,10 +1,7 @@
-﻿"""Recoverability tolerance and feasible-menu diagnostics.
+"""Recoverability tolerance and feasible-menu diagnostics.
 
-This script uses the current package candidate generator and selected results
-root.  It computes, on repeated test-split samples, whether the feasible
-recommendation menu contains a candidate close to the disclosed allocation and
-whether the 20 percent transition-ranked feasible set selects such a candidate.
-The disclosed test allocation is never included in the menu metrics.
+Computes feasible-menu support and transition-ranked selection on repeated
+test-split samples.
 """
 
 from __future__ import annotations

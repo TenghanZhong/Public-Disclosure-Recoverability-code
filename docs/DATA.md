@@ -1,7 +1,7 @@
 # Data Inputs
 
 Raw regulatory filings are not redistributed in this repository. The pipeline
-expects a disclosure-derived, user-provided data directory with these inputs:
+expects a disclosure-derived data directory with these inputs:
 
 ```text
 data/raw/
@@ -11,9 +11,9 @@ data/raw/
   adv_contract_text_constraints.csv
 ```
 
-The study uses quarter-end N-PORT month-three reports, N-CEN fund-series
-metadata, adviser disclosure fields, and market-state controls. The scripts
-convert those inputs into:
+The inputs contain quarter-end N-PORT month-three reports, N-CEN fund-series
+metadata, adviser disclosure fields, and market-state controls. The pipeline
+creates:
 
 ```text
 outputs/full_pipeline/
@@ -26,7 +26,5 @@ outputs/full_pipeline/
   scope_preference_summary_exogenous_polytope.csv
 ```
 
-Large raw files and row-level intermediate outputs are excluded to keep the
-repository compact and to avoid redistributing regulatory-data extracts. The
-included `tables/` and `figures/` directories provide the compact reported
-outputs.
+Large source files and row-level intermediate outputs are excluded. Compact
+reference summaries are provided under `tables/` and `figures/`.

@@ -1,9 +1,6 @@
 """Persistence and candidate-menu diagnostics.
 
-This script measures whether reported coverage is driven by lagged
-self-history candidates. It reads a selected-specification result directory,
-rebuilds the exogenous mandate-proxy bounds, and evaluates persistence-based
-baselines on the same candidate-menu construction.
+Evaluates lagged-history baselines under the selected candidate construction.
 """
 
 from __future__ import annotations

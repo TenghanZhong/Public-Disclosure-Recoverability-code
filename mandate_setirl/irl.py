@@ -752,7 +752,7 @@ def summarize_frontier_metrics(eval_df: pd.DataFrame) -> pd.DataFrame:
     """Summarize fixed-fraction recommendation frontiers.
 
     Main frontier metrics exclude candidate 0.  The rationalization frontier is
-    reported separately with ``rationalization_*`` columns and includes candidate 0.
+    stored in ``rationalization_*`` columns and includes candidate 0.
     """
     if eval_df.empty:
         return pd.DataFrame()

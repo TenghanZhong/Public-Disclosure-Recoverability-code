@@ -383,7 +383,7 @@ def main() -> None:
     t_diff = abs(float(baseline["two_way_cluster_t"]) - EXPECTED_BASELINE_T)
     if beta_diff > BASELINE_TOL or t_diff > BASELINE_TOL:
         raise RuntimeError(
-            "Baseline row differs from the reported risk-signal estimate: "
+            "Baseline row differs from the reference risk-signal estimate: "
             f"beta={float(baseline['beta']):.12f}, t={float(baseline['two_way_cluster_t']):.12f}; "
             f"expected beta={EXPECTED_BASELINE_BETA:.12f}, t={EXPECTED_BASELINE_T:.12f}. "
             "Check selected_root, bounds, sample filter, tolerance, and clustering implementation."
