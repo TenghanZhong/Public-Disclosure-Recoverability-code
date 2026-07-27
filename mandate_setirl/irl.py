@@ -100,11 +100,9 @@ def fit_set_valued_irl(
     model_name: str = "mandate_polytope",
     out_dir: str | None = None,
 ) -> IRLModel:
-    """Fit polyhedral revealed-preference sets via LP.
+    """Fit polyhedral revealed-preference sets by linear programming.
 
-    This replaces the previous Dirichlet rejection sampler.  It treats the
-    linear reward compatibility inequalities as a polytope and computes the
-    minimax slack epsilon plus coordinate intervals by linear programming.
+    The routine computes minimax slack and coordinatewise preference intervals.
     """
     irl_cfg = cfg.get("irl", {})
     scope_series, _ = make_scope_column(panel, cfg, entity_col)

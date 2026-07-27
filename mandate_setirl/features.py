@@ -94,12 +94,10 @@ def infer_asset_proxy_panels(
     asset_cols: list[str],
     cfg: dict[str, Any],
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, dict[str, dict[str, str | None]]]:
-    """Build row-specific return/risk/drawdown proxy panels.
+    """Build row-specific return, risk, and drawdown proxy panels.
 
-    The previous implementation used one full-sample median vector, which was
-    both state-insensitive and mildly look-ahead.  This version uses row-level
-    market-state columns when present and fills missing values with train-period
-    medians only.
+    Available market-state columns are used directly, with missing values
+    filled from training-period medians.
     """
     n = len(panel)
     k = len(action_cols)
