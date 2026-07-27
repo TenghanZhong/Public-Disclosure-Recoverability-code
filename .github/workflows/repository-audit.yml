@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - audit/repository-hygiene
+  pull_request:
+    branches:
+      - main
 
 jobs:
   audit:
@@ -122,7 +125,7 @@ jobs:
               print(path)
           PY
 
-      - name: Check reported supervised values
+      - name: Check supervised summary values
         shell: bash
         run: |
           python - <<'PY'
