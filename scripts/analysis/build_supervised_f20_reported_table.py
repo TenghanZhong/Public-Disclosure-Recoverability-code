@@ -56,19 +56,20 @@ def main() -> None:
                 "n_series": int(g["series_id"].astype(str).nunique()),
                 "recommendation_fraction": float(g["recommendation_fraction"].iloc[0]),
                 "point_estimate_coverage_pct": 100.0 * float(g["choice_coverage"].mean()),
-                "ci_low_coverage_pct": 100.0 * float(s.loc["choice_coverage", "ci_low"]),
-                "ci_high_coverage_pct": 100.0 * float(s.loc["choice_coverage", "ci_high"]),
+                "ci_low_coverage_pct": 100.0 * float(s.loc["coverage", "ci_low"]),
+                "ci_high_coverage_pct": 100.0 * float(s.loc["coverage", "ci_high"]),
                 "point_estimate_distance_l1": float(g["distance_to_set_l1"].mean()),
-                "ci_low_distance_l1": float(s.loc["distance_to_set_l1", "ci_low"]),
-                "ci_high_distance_l1": float(s.loc["distance_to_set_l1", "ci_high"]),
+                "ci_low_distance_l1": float(s.loc["distance", "ci_low"]),
+                "ci_high_distance_l1": float(s.loc["distance", "ci_high"]),
                 "point_estimate_violation_pct": 100.0 * float(g["recommendation_violation_rate"].mean()),
             }
         )
 
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    pd.DataFrame(rows).to_csv(out, index=False)
-    print(pd.DataFrame(rows).to_string(index=False))
+    result = pd.DataFrame(rows)
+    result.to_csv(out, index=False)
+    print(result.to_string(index=False))
 
 
 if __name__ == "__main__":
