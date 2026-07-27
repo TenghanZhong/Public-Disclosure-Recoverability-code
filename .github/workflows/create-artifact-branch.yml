@@ -1,0 +1,39 @@
+name: create-artifact-branch
+
+on:
+  push:
+    branches:
+      - ops/create-artifact-branch
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate current tree
+        shell: bash
+        run: |
+          python -m pip install -r requirements.txt
+          python -m compileall -q mandate_setirl scripts tests
+          pytest -q
+
+      - name: Create single-commit branch
+        shell: bash
+        run: |
+          git config user.name "Anonymous Artifact"
+          git config user.email "anonymous-artifact@users.noreply.github.com"
+          git checkout --orphan artifact
+          git add -A
+          git commit -m "Public disclosure recoverability artifact"
+          git push --force origin artifact
