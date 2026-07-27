@@ -55,11 +55,12 @@ inside the exogenous mandate proxy and then selects
 `ceil(0.20 * number of feasible candidates)`. Coverage and distance are
 computed from the closest candidate in each selected set.
 
-To rebuild the combined benchmark table after the supervised run:
+To regenerate the compact supervised table after the full-data run:
 
 ```bash
-python scripts/analysis/build_persistence_benchmarks.py \
-  --supervised_dir outputs/supervised_ranker
+python scripts/analysis/build_supervised_f20_reported_table.py \
+  --row_level outputs/supervised_ranker/supervised_ranker_f20_row_level.parquet \
+  --out tables/supervised_ranker_f20_reported.csv
 ```
 
 Other examples:
