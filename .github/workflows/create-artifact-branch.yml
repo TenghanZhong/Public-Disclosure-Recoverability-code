@@ -1,9 +1,9 @@
 name: create-artifact-branch
 
 on:
-  push:
+  pull_request:
     branches:
-      - ops/create-artifact-branch
+      - main
 
 permissions:
   contents: write
