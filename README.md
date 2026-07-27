@@ -63,7 +63,7 @@ results to `outputs/` and reported summaries to `tables/`.
 The supervised 20% recommendation-set baseline is generated with:
 
 ```bash
-python scripts/pipeline/run_supervised_ranker_f20.py \
+python -m scripts.pipeline.run_supervised_ranker_f20 \
   --recommendation_fraction 0.20
 ```
 
