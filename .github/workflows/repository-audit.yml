@@ -23,7 +23,7 @@ jobs:
       - name: Scan tracked text files
         shell: bash
         run: |
-          python - <<'PY'
+          python - <<'PY' | tee audit_report.txt
           from pathlib import Path
           import re
           import subprocess
@@ -159,3 +159,16 @@ jobs:
 
       - name: Run tests
         run: pytest -q
+
+      - name: Build repository snapshot
+        if: always()
+        run: git archive --format=zip --output=repository-snapshot.zip HEAD
+
+      - name: Upload audit bundle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repository-audit-bundle
+          path: |
+            audit_report.txt
+            repository-snapshot.zip
