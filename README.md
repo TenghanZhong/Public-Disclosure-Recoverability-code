@@ -10,6 +10,12 @@ The artifact builds three layers:
 2. revealed-preference and benchmark recommendation scores;
 3. reported tables, diagnostics, and figures.
 
+The supervised baseline uses the same 20% recommendation-set frontier as the
+RP comparisons. The global rule retains the highest-scoring 20% of the
+non-observed menu. The feasibility-filtered rule first removes candidates
+outside the empirical mandate proxy and then retains the highest-scoring 20%
+of the remaining feasible menu.
+
 Raw regulatory filings are not redistributed. The code expects the public
 disclosure inputs described in `docs/DATA.md`; compact reported outputs are
 included under `tables/` and `figures/` for inspection.
@@ -53,6 +59,13 @@ The committed tables and figures provide the reported numerical
 outputs. Full reruns require the disclosure-derived panel files documented in
 `docs/DATA.md`. With those files in place, the configured entry points write
 results to `outputs/` and reported summaries to `tables/`.
+
+The supervised 20% recommendation-set baseline is generated with:
+
+```bash
+python -m scripts.pipeline.run_supervised_ranker_f20 \
+  --recommendation_fraction 0.20
+```
 
 See:
 

@@ -1,0 +1,3 @@
+model_label,sample_scope,n,n_series,recommendation_fraction,point_estimate_coverage_pct,ci_low_coverage_pct,ci_high_coverage_pct,point_estimate_distance_l1,ci_low_distance_l1,ci_high_distance_l1,point_estimate_violation_pct
+"Supervised ranking, global menu, f20",full_test,48890,11750,0.20,34.83,34.15,35.50,0.164,0.160,0.169,14.32
+"Supervised ranking, feasibility filter, f20",full_test,48890,11750,0.20,31.82,31.18,32.52,0.323,0.311,0.334,0.00
