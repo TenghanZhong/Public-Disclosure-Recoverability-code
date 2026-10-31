@@ -118,9 +118,8 @@ def robust_zscore(s: pd.Series, clip: float = 8.0) -> pd.Series:
 class SimpleStandardScaler:
     """Small sklearn-free standard scaler used for reproducible experiments.
 
-    The project originally used sklearn.StandardScaler, but importing sklearn can
-    be heavy or brittle in constrained environments.  This implementation covers
-    the fit/transform API required by the experiment.
+    Implements the fit/transform API used by the experiment without importing
+    sklearn.
     """
 
     def __init__(self):
@@ -164,10 +163,9 @@ def l1_distance_matrix(a: np.ndarray, b: np.ndarray) -> np.ndarray:
 def bounded_simplex_project(v: np.ndarray, lower: np.ndarray, upper: np.ndarray, target_sum: float = 1.0) -> np.ndarray:
     """Fast approximate projection onto {x: lower <= x <= upper, sum x = target_sum}.
 
-    This is intentionally lightweight because it is called millions of times in
-    candidate generation. It clips to bounds and then redistributes surplus or
-    deficit across coordinates with remaining capacity. For this experiment the
-    approximation is preferable to an exact but slow quadratic projection.
+    Clips to bounds and then redistributes surplus or deficit across coordinates
+    with remaining capacity. Candidate generation calls this routine repeatedly;
+    it does not solve an exact quadratic projection problem.
     """
     v = np.asarray(v, dtype=float)
     lower = np.nan_to_num(np.asarray(lower, dtype=float), nan=0.0, posinf=0.0, neginf=0.0)

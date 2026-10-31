@@ -148,7 +148,7 @@ def main() -> None:
         "n_cases": int(len(cards_df)),
         "notes": [
             "Cases summarize post-estimation examples.",
-            "They should not be presented as randomly selected representative evidence.",
+            "They are selected examples, not a random sample of the evaluation population.",
         ],
     }
     with open(out_dir / "traceability_cases_manifest.json", "w", encoding="utf-8") as f:
